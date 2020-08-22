@@ -50,6 +50,11 @@ exports.up = function(knex) {
         //Timestamps indicate when resource was created and updated
         table.timestamps()
     })
+    .createTable('deleted_items', table => {
+        table.increments('id')
+        table.string('name').notNullable()
+        table.date('expires_on').notNullable()
+    })
 };
 
 exports.down = function(knex) {

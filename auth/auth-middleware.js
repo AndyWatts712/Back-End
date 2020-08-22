@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-  // add code here to verify users are logged in
   const token = req.headers.authorization;
 
   const secret = process.env.JWT_SECRET || "keep it secret, keep it safe";
@@ -9,10 +8,8 @@ module.exports = (req, res, next) => {
   if (token) {
     jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
-        // token not valid or was modified
         res.status(401).json({ you: "cannot not pass!" });
       } else {
-        // token is good and we have access to the information inside
         req.decodedToken = decodedToken;
 
         next();

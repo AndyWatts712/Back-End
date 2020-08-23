@@ -60,7 +60,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("deleted_items)
+    .dropTableIfExists("deleted_items")
     .dropTableIfExists("items")
     .dropTableIfExists("lists")
     .dropTableIfExists("listType")

@@ -7,7 +7,7 @@ exports.up = function (knex) {
       table.string("email").notNullable().unique();
       table.string("password").notNullable();
       //Timestamps indicate when resource was created and updated
-      table.timestamps();
+      table.timestamps(true, true);
     })
     .createTable("listType", (table) => {
       table.increments("id");
@@ -49,7 +49,7 @@ exports.up = function (knex) {
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       //Timestamps indicate when resource was created and updated
-      table.timestamps();
+      table.timestamps(true, true);
     })
     .createTable("deleted_items", (table) => {
       table.increments("id");

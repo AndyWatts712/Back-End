@@ -2,7 +2,11 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("users", (table) => {
       table.increments("id");
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3f1b297c37886f5c7d71fc5849744c274f06fe7a
       table.string("username", 56).notNullable();
       table.string("email").notNullable().unique();
       table.string("password").notNullable();
@@ -60,6 +64,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("deleted_items")
     .dropTableIfExists("items")
     .dropTableIfExists("lists")
     .dropTableIfExists("listType")

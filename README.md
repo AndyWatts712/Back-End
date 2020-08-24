@@ -1,5 +1,6 @@
 # Back-End
 
+API hosted at: https://wunderlist-bw820.herokuapp.com/
 
 API - These are the endpoints and required information
 
@@ -55,8 +56,8 @@ Lists Schema
 | Field    | Data Type     | Metadata                     |
 | -------- | ------------- | ---------------------------- |
 | id       | integer       | Primary Key, auto-increments |
-| name     | varchar (255) | none                         |
-| type_id  | integer (FK)  | 1=todo,2=work,3=shopping     |
+| name*    | varchar (255) | none                         |
+| type_id* | integer (FK)  | 1=todo,2=work,3=shopping     |
 | user_id  | integer (FK)  | Will be set by endpoint      |
 
 Items (Tasks) Schema
@@ -64,9 +65,9 @@ Items (Tasks) Schema
 | Field        | Data Type     | Metadata                     |
 | ------------ | ------------- | ---------------------------- |
 | id           | integer       | Primary Key, auto-increments |
-| name         | varchar (255) | none                         |
+| name*        | varchar (255) | none                         |
 | completed    | boolean       | defaults to false            |
 | complete_by  | date          | not required                 |
-| list_id      | integer (FK)  | set at time of creation      |
+| list_id*     | integer (FK)  | set at time of creation      |
 
 ### Items marked with * are required

@@ -3,7 +3,7 @@
 // /api/auth/login '/login'
 
 // /api/auth/logout '/logout'
-//-----------------------------//------------//
+//-----------------------------//------------
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");

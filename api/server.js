@@ -19,7 +19,7 @@ server.use("/api/lists", protected, listsRouter);
 server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {
-  res.send({ api: "started" });
+  res.status(200).json({ api: "started" });
 });
 
 module.exports = server;

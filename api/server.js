@@ -4,6 +4,7 @@ const helmet = require("helmet");
 
 //--routers
 const usersRouter = require("../users/users-router.js");
+const listsRouter = require("../lists/lists-routers.js");
 const authRouter = require("../auth/auth-router.js");
 const protected = require("../auth/auth-middleware.js");
 
@@ -14,6 +15,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/api/users", protected, usersRouter);
+server.use("/api/lists", protected, listsRouter);
 server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {

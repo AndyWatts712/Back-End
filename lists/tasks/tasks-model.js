@@ -1,4 +1,4 @@
-const db = require("../database/dbConfig.js");
+const db = require("../../database/dbConfig.js");
 
 module.exports = {
   find,
@@ -8,18 +8,17 @@ module.exports = {
   remove,
 };
 
-function find(userid) {
-  return db("lists as l")
-    .join("listType as t", "l.type_id", "=", "t.id")
-    .join("users as u", "u.id", "=", "l.user_id")
-    .select("l.id", "l.name", "t.name as type", "u.username")
-    .where({ "l.user_id": userid })
-    .orderBy("l.id");
+function find(listid) {
+  return db("items as i")
+    .join("lists as l", "l.id", "=", "i.list_id")
+    .select("i.*", "l.name as listName")
+    .where({ "i.list_id": listid })
+    .orderBy("i.id");
 }
 
-async function add(list) {
+async function add(item) {
   try {
-    const [id] = await db("lists").insert(list, "id");
+    const [id] = await db("items").insert(item, "id");
 
     return findById(id);
   } catch (error) {
@@ -28,7 +27,7 @@ async function add(list) {
 }
 
 function update(id, updated) {
-  return db("lists")
+  return db("items")
     .where({ id })
     .update(updated)
     .then(() => {
@@ -37,14 +36,13 @@ function update(id, updated) {
 }
 
 function remove(id) {
-  return db("lists").where("id", id).del();
+  return db("items").where("id", id).del();
 }
 
 function findById(id) {
-  return db("lists as l")
-    .join("listType as t", "l.type_id", "=", "t.id")
-    .join("users as u", "u.id", "=", "l.user_id")
-    .select("l.id", "l.name", "t.name as type", "u.username")
-    .where({ "l.id": id })
+  return db("items as i")
+    .join("lists as l", "l.id", "=", "i.list_id")
+    .select("i.*", "l.name as listName")
+    .where({ "i.id": id })
     .first();
 }

@@ -50,7 +50,7 @@ describe('/api/auth', () => {
                 .post('/api/auth/login')
                 .send(testLogin)
 
-            expect(res.body).toMatch(/token/i)
+            expect(res.body).toMatchObject(/token/i)
             expect(res.type).toMatch(/jon/i)
         })
     })

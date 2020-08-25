@@ -67,7 +67,7 @@ Items (Tasks) Schema
 | id           | integer       | Primary Key, auto-increments |
 | name*        | varchar (255) | none                         |
 | completed    | boolean       | defaults to false            |
-| complete_by  | date          | not required                 |
+| complete_by  | date          | not required (YYYY-MM-DD)    |
 | list_id*     | integer (FK)  | set at time of creation      |
 
 ### Items marked with * are required

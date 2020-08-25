@@ -35,7 +35,46 @@ describe("users-router", () => {
         .get("/api/users")
         .set("Authorization", `${token}`);
 
-      expect(res).toBe(11);
+      expect(res.status).toBe(200);
     });
+
+    it("returns information", async () => {
+        const res = await supertest(server)
+          .get("/api/users")
+          .set("Authorization", `${token}`);
+  
+        expect(res.body).toHaveProperty('data');
+      });
+  });
+  describe("GET /api/users/:id", () => {
+    it("returns 401 without token", async () => {
+      const res = await supertest(server).get("/api/users/1");
+
+      expect(res.status).toBe(401);
+    });
+
+    it("accesses the route with a token", async () => {
+      const res = await supertest(server)
+        .get("/api/users/1")
+        .set("Authorization", `${token}`);
+
+      expect(res.status).toBe(200);
+    });
+
+    it("returns information", async () => {
+        const res = await supertest(server)
+          .get("/api/users/1")
+          .set("Authorization", `${token}`);
+  
+        expect(res.body).toHaveProperty('username');
+    });
+
+    it("returns 404 if id is not in db", async () => {
+        const res = await supertest(server)
+          .get("/api/users/5")
+          .set("Authorization", `${token}`);
+  
+        expect(res.status).toBe(404);
+      });
   });
 });

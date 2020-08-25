@@ -34,6 +34,7 @@ router.post("/login", (req, res) => {
 
         res.status(200).json({
           message: `Welcome ${user.username}! You logged in!`,
+          data:user,
           token,
         });
       } else {
@@ -53,7 +54,7 @@ function createToken(user) {
     email: user.email,
   };
 
-  const secret = process.env.JWT_SECRET || "is it secret, is it safe?";
+  const secret = process.env.JWT_SECRET || "keep it secret, keep it safe";
 
   const options = {
     expiresIn: "1d",

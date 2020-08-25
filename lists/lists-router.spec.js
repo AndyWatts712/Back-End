@@ -18,6 +18,7 @@ describe("lists-router", () => {
       .send(testUser) //testUser = an object at the top of the page
       .end((err, response) => {
         token = response.body.token;
+        console.log(response.body);
         done();
       });
   });
@@ -27,15 +28,16 @@ describe("lists-router", () => {
     it("returns 401 without token", async () => {
       const res = await supertest(server).get("/api/jokes");
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(401);
     });
 
     it("access the route with a token", async () => {
       const res = await supertest(server)
         .get("/api/lists")
         .set("Authorization", `${token}`);
-
-      expect(res.status).toBe(401);
+      const test = await db("users");
+      console.log(test);
+      expect(res.status).toBe(200);
       expect(res.type).toMatch(/json/i);
     });
   });

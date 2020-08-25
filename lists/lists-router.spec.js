@@ -1,35 +1,42 @@
 //Natalia
+const supertest = require("supertest");
 
-describe.skip('jokes-router', () => {
-    //next batch of code is for storing token to use to access restricted
-    let token;
-    beforeEach((done) => {
-        supertest(server)//server = router components (change the name as needed)
-            .post('/api/auth/login')
-            .send(testUser)//testUser = an object at the top of the page
-            .end((err, response) => {
-            token = response.body.token
-            done();
-            });
-        });
-    //STORE DONE
+const server = require("../api/server.js");
+const db = require("../database/dbConfig.js");
 
+let testUser = {
+  username: "userOne",
+  password: "pass",
+};
 
-    describe('GET /api/jokes', () => {
-        it('returns 401 without token', async () => {
-            const res = await supertest(server)
-                .get('/api/jokes')
+describe("lists-router", () => {
+  //next batch of code is for storing token to use to access restricted
+  let token;
+  beforeEach((done) => {
+    supertest(server) //server = router components (change the name as needed)
+      .post("/api/auth/login")
+      .send(testUser) //testUser = an object at the top of the page
+      .end((err, response) => {
+        token = response.body.token;
+        done();
+      });
+  });
+  //STORE DONE
 
-            expect(res.status).toBe(401)
-        })
+  describe("GET /api/lists", () => {
+    it("returns 401 without token", async () => {
+      const res = await supertest(server).get("/api/jokes");
 
-        it('accesses the route with a token', async () => {
-            const res = await supertest(server)
-                .get('/api/jokes')
-                .set('Authorization', `${token}`)
+      expect(res.status).toBe(404);
+    });
 
-            expect(res.status).toBe(200)
-            expect(res.type).toMatch(/json/i)
-        })
-    })
-})
+    it("access the route with a token", async () => {
+      const res = await supertest(server)
+        .get("/api/lists")
+        .set("Authorization", `${token}`);
+
+      expect(res.status).toBe(401);
+      expect(res.type).toMatch(/json/i);
+    });
+  });
+});

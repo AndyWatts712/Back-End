@@ -5,7 +5,7 @@ const server = require("../api/server.js");
 const db = require("../database/dbConfig.js");
 
 //--tests--//
-describe("server", () => {
+describe.skip("server", () => {
   beforeEach(async () => {
     await db("users").truncate();
   });

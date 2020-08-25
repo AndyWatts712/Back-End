@@ -1,10 +1,9 @@
-// api/lists/:id 'specific list with tasks' '/:id'
-
 const router = require("express").Router();
 const tasksRouter = require("./tasks/tasks-router.js");
 const { listValidation } = require("./req-validation");
 
 const Lists = require("./lists-model.js");
+
 
 router.get("/", (req, res) => {
   const userId = req.decodedToken.subject;
@@ -72,14 +71,20 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const listId = req.params.id;
 
-  Lists.remove(listId)
-    .then((deleted) => {
-      res.status(204).end();
-    })
-    .catch((error) => {
-      res.status(500).json({ error: error.message });
-    });
-});
-// router.use("/api/lists/:id/tasks", tasksRouter);
+    Lists.remove(listId)
+        .then(deleted => {
+            res.status(204).end()
+        })
+        .catch(error => {
+            res.status(500).json({error:error.message})
+        })
+})
+// router.use("/api/lists/:id/tasks", saveListId, tasksRouter);
+
+function saveListId(req,res,next) {
+        req.listId = req.params.id
+        next()
+}
+
 
 module.exports = router;

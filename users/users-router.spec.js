@@ -31,7 +31,6 @@ describe("users-router", () => {
     });
 
     it("accesses the route with a token", async () => {
-      console.log(token, "in the test");
       const res = await supertest(server)
         .get("/api/users")
         .set("Authorization", `${token}`);

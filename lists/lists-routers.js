@@ -78,10 +78,10 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({error:error.message})
         })
 })
-// router.use("/api/lists/:listid/tasks", saveListId, tasksRouter);
+// router.use("/api/lists/:id/tasks", saveListId, tasksRouter);
 
 function saveListId(req,res,next) {
-        req.listId = req.params.listid
+        req.listId = req.params.id
         next()
 }
 

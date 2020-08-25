@@ -1,40 +1,45 @@
 const supertest = require('supertest')
 
-const usersRouter = require('./users-router')
+const server = require('../api/server')
 const db = require('../database/dbConfig')
 
+const testLogin = {
+    username:"testuser1234",
+    password:"testing123"
+}
+
+//next batch of code is for storing token to use to access restricted
+let token;
+beforeAll((done) => {
+    supertest(server)
+        .post('/api/auth/login')
+        .send(testLogin)
+        .end((err, response) => {
+        token = response.body.token
+        console.log(response.body)
+        done();
+        });
+    });
+//STORE DONE
 
 //Shaun
-describe.skip('jokes-router', () => {
-    //next batch of code is for storing token to use to access restricted
-    let token;
-    beforeEach((done) => {
-        supertest(server)
-            .post('/api/auth/login')
-            .send(testUser)
-            .end((err, response) => {
-            token = response.body.token
-            done();
-            });
-        });
-    //STORE DONE
+describe('users-router', () => {
 
-
-    describe('GET /api/jokes', () => {
+    describe('GET /api/users', () => {
         it('returns 401 without token', async () => {
             const res = await supertest(server)
-                .get('/api/jokes')
+                .get('/api/users')
 
             expect(res.status).toBe(401)
         })
 
         it('accesses the route with a token', async () => {
+            console.log(token, 'in the test')
             const res = await supertest(server)
-                .get('/api/jokes')
+                .get('/api/users')
                 .set('Authorization', `${token}`)
 
-            expect(res.status).toBe(200)
-            expect(res.type).toMatch(/json/i)
+                expect(res).toBe(11)
         })
     })
 })

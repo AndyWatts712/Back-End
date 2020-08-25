@@ -13,29 +13,14 @@ router.get("/", (req, res) => {
 });
 
 //findById
-router.get("/:id", (req, res) => {
-  Users.findById(req.params.id)
-    .then((user) => {
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res
-          .status(404)
-          .json({ message: "The user with the specified ID does not exist." });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      res
-        .status(500)
-        .json({ error: "The user information could not be retrieved." });
-    });
+router.get("/:id", checkUserExists, (req, res) => {
+  res.status(200).json({data: req.entry})
 });
 
 //update
-router.put("/:id", (req, res) => {
+router.put("/:id", checkUserExists, (req, res) => {
   // do your magic!
-  const { id } = req.params;
+  const { id } = req;
   const user = req.body;
 
   Users.update(id, user).then((item) => {
@@ -48,8 +33,8 @@ router.put("/:id", (req, res) => {
 });
 
 //remove
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
+router.delete("/:id", checkUserExists, (req, res) => {
+  const { id } = req;
 
   Users.remove(id).then((item) => {
     if (item == item > 0) {
@@ -61,5 +46,26 @@ router.delete("/:id", (req, res) => {
     }
   });
 });
+
+function checkUserExists(req,res,next) {
+  Users.findById(req.params.id)
+  .then((user) => {
+    if (user) {
+      req.id = req.params.id
+      req.entry = user
+      next()
+    } else {
+      res
+        .status(404)
+        .json({ message: "The user with the specified ID does not exist." });
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error: "The user information could not be retrieved." });
+  });
+}
 
 module.exports = router;

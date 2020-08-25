@@ -1,6 +1,6 @@
 //Natalia
 
-describe('jokes-router', () => {
+describe.skip('jokes-router', () => {
     //next batch of code is for storing token to use to access restricted
     let token;
     beforeEach((done) => {

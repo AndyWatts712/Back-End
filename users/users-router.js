@@ -3,9 +3,8 @@
 const router = require("express").Router();
 
 const Users = require("./users-model.js");
-const protected = require("../auth/auth-middleware.js");
 
-router.get("/", protected, (req, res) => {
+router.get("/", (req, res) => {
   Users.find()
     .then((users) => {
       res.status(200).json({ data: users });

@@ -7,12 +7,8 @@ const testLogin = {
     username: "testuser1234",
     password: "testing123",
   };
-const testList = {
-    name: "Test List",
-    type: "1"
-};
 const testTask = {
-    name: "Test List",
+    name: "Test Task",
     type: "1"
 };
 
@@ -32,29 +28,26 @@ beforeAll((done) => {
 
 //Shaun
 describe('tasks-router', () => {
-    beforeAll((done) => {
-        supertest(server)
-            .post('/api/lists')
-            .send(testList)
-            .set("Authorization", `${token}`)
-    });
 
     describe('GET /api/tasks', () => {
-        it.skip('returns 401 without token', async () => {
+        it('returns 401 without token', async () => {
             const res = await supertest(server)
                 .get('/api/lists/1/tasks')
 
             expect(res.status).toBe(401)
         })
 
-        it('accesses the route with a token', () => {
-            return supertest(server)
+        it('accesses the route with a token', async () => {
+            const res = await supertest(server)
                 .get('/api/lists/1/tasks')
                 .set('Authorization', `${token}`)
-                .then(res => {
-                    expect(res.status).toBe(200)
-                    expect(res.type).toMatch(/json/i)        
-                })
+
+                const tests = await db('lists')
+                console.log(tests)
+
+                expect(res.status).toBe(200)
+                expect(res.type).toMatch(/json/i)        
+             
         })
     })
 })

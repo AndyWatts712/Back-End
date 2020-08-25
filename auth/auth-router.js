@@ -53,7 +53,7 @@ function createToken(user) {
     email: user.email,
   };
 
-  const secret = process.env.JWT_SECRET || "is it secret, is it safe?";
+  const secret = process.env.JWT_SECRET || "keep it secret, keep it safe";
 
   const options = {
     expiresIn: "1d",

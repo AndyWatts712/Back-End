@@ -16,14 +16,13 @@ beforeAll((done) => {
     .send(testLogin)
     .end((err, response) => {
       token = response.body.token;
-      console.log(response.body);
       done();
     });
 });
 //STORE DONE
 
 //Shaun
-describe.skip("users-router", () => {
+describe("users-router", () => {
   describe("GET /api/users", () => {
     it("returns 401 without token", async () => {
       const res = await supertest(server).get("/api/users");

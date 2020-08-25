@@ -16,7 +16,7 @@ server.use(express.json());
 
 server.use("/api/users", protected, usersRouter);
 server.use("/api/lists", protected, listsRouter);
-server.use("/api/tasks", protected, taskRouter);
+// server.use("/api/tasks", protected, taskRouter);
 server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {

@@ -3,11 +3,10 @@
 //api/lists/:id/tasks/:id '/:id'
 
 const router = require("express").Router();
-// const { listValidation } = require("../req-validation");
 const Tasks = require("./tasks-model.js");
 
 router.get("/", (req, res) => {
-  const listId = req.decodedToken.subject;
+  const listId = req.listId;
 
   Tasks.find(listId)
     .then((tasks) => {
@@ -20,7 +19,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const listId = req.decodedToken.subject;
+  const listId = req.listId;
   const newTask = req.body;
   if (newTask) {
     //on success
@@ -39,7 +38,7 @@ router.post("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const listId = req.decodedToken.subject;
+  const listId = req.listId;
   const taskId = req.params.id;
   //decodedToken.subject is the user_id
   Tasks.findById(taskId)
@@ -81,6 +80,5 @@ router.delete("/:id", (req, res) => {
       res.status(500).json({ error: error.message });
     });
 });
-// router.use("/api/tasks/:id/tasks", tasksRouter);
 
 module.exports = router;

@@ -4,9 +4,9 @@ const supertest = require("supertest");
 const server = require("../api/server.js");
 const db = require("../database/dbConfig.js");
 
-let testUser = {
-  username: "userOne",
-  password: "pass",
+const testUser = {
+  username: "testuser1234",
+  password: "testing123",
 };
 
 describe("lists-router", () => {

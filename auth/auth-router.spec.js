@@ -13,7 +13,7 @@ const testLogin = {
   password: "testing123",
 };
 
-describe.skip("/api/auth", () => {
+describe("/api/auth", () => {
   //Register
   describe("POST /register", () => {
     beforeEach(async () => {
@@ -51,7 +51,7 @@ describe.skip("/api/auth", () => {
         .send(testLogin);
 
       expect(res.body).toMatchObject(/token/i);
-      expect(res.type).toMatch(/jon/i);
+      expect(res.type).toMatch(/json/i);
     });
   });
 });

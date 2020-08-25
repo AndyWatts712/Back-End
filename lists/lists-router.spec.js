@@ -9,11 +9,7 @@ const testUser = {
   password: "testing123",
 };
 
-<<<<<<< HEAD
 describe.skip("lists-router", () => {
-=======
-describe("lists-router", () => {
->>>>>>> 6f029ae0c3144e912d35421a4b3cc5696abfa380
   //next batch of code is for storing token to use to access restricted
   let token;
   beforeEach((done) => {

@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const usersRouter = require("../users/users-router.js");
 const listsRouter = require("../lists/lists-routers.js");
 const authRouter = require("../auth/auth-router.js");
-const protected = require("../auth/auth-middleware.js");
+const restricted = require("../auth/auth-middleware.js");
 const taskRouter = require("../lists/tasks/tasks-router.js");
 const server = express();
 
@@ -14,9 +14,9 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use("/api/users", protected, usersRouter);
-server.use("/api/lists", protected, listsRouter);
-// server.use("/api/tasks", protected, taskRouter);
+server.use("/api/users", restricted, usersRouter);
+server.use("/api/lists", restricted, listsRouter);
+
 server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {

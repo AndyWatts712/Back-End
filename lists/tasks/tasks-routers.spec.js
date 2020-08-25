@@ -1,10 +1,10 @@
 const supertest = require('supertest')
 
 const tasksRouter = require('./tasks-router')
-const db = require('../data/dbConfig')
+const db = require('../../database/dbConfig')
 
 //Shaun
-describe('jokes-router', () => {
+describe.skip('jokes-router', () => {
     //next batch of code is for storing token to use to access restricted
     let token;
     beforeEach((done) => {

@@ -34,15 +34,12 @@ describe('users-router', () => {
         })
 
         it('accesses the route with a token', async () => {
-            console.log(token,'in the test')
+            console.log(token, 'in the test')
             const res = await supertest(server)
                 .get('/api/users')
                 .set('Authorization', `${token}`)
-            
-                const test = await db('users')
 
-                console.log(test)
-                expect(res).toBe(1)
+                expect(res).toBe(11)
         })
     })
 })

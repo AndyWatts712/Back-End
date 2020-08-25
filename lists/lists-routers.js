@@ -1,11 +1,9 @@
-
-// api/lists/:id 'specific list with tasks' '/:id'
-
 const router = require("express").Router();
 const tasksRouter = require("./tasks/tasks-router.js");
 const { listValidation } = require('./req-validation')
 
 const Lists = require("./lists-model.js");
+
 
 router.get("/", (req, res) => {
     const userId = req.decodedToken.subject
@@ -80,6 +78,12 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({error:error.message})
         })
 })
-// router.use("/api/lists/:id/tasks", tasksRouter);
+// router.use("/api/lists/:id/tasks", saveListId, tasksRouter);
+
+function saveListId(req,res,next) {
+        req.listId = req.params.id
+        next()
+}
+
 
 module.exports = router

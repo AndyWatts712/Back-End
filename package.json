@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --watch -i",
+    "test": "cross-env NODE_ENV=testing jest --watch -i --testTimeout=10000",
     "start": "node index.js",
     "server": "nodemon index.js"
   },

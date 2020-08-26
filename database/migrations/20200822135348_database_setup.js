@@ -46,7 +46,7 @@ exports.up = function (knex) {
         .notNullable()
         .unsigned()
         .references("lists.id")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
       //Timestamps indicate when resource was created and updated
       table.timestamps(true, true);

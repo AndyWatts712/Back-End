@@ -31,7 +31,7 @@ describe("lists-router", () => {
   });
   //STORE DONE
 
-  describe("GET /api/lists", () => {
+  describe.skip("GET /api/lists", () => {
     beforeAll(async () => {
       await db("lists").truncate();
     });
@@ -71,7 +71,7 @@ describe("lists-router", () => {
     });
   });
 
-  describe("PUT /api/lists/:id", () => {
+  describe.skip("PUT /api/lists/:id", () => {
     it("returns UPDATED information", async () => {
       const res = await supertest(server)
         .put("/api/lists/1")
@@ -93,7 +93,7 @@ describe("lists-router", () => {
     });
   });
 
-  describe("DELETE /api/lists/:id", () => {
+  describe.skip("DELETE /api/lists/:id", () => {
     it("returns 401 without token", async () => {
       const res = await supertest(server).delete("/api/lists/1");
 
